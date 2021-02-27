@@ -1,19 +1,17 @@
 <template lang="pug">
   v-card
-    v-card-title ユーザ
+    v-card-title クエスト
     v-card-text
-      v-data-table(:headers='headers' :items="users")
+      v-data-table(:headers='headers' :items="missions")
         template(v-slot:item.actions="{item}")
-          v-icon(@click="setUserDialogId(item.id);setUserDialogShow(true)") mdi-pencil
-        template(v-slot:item.joinTime="{item}")
-          | {{ getDateFormat(item.joinTime) }}
+          v-icon(@click="setMissionDialogId(item.id);setMissionDialogShow(true)") mdi-pencil
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
 
 export default {
-  name: 'AdminUserTable',
+  name: 'AdminMissionTable',
   data() {
     return {
       headers: [
@@ -23,34 +21,33 @@ export default {
           value: 'id',
         },
         {
-          text: '状態',
-          value: 'userStatus',
+          text: 'タイトル',
+          value: 'title',
         },
         {
-          text: '名前',
-          value: 'userName',
+          text: '開始時刻',
+          value: 'startTime',
         },
         {
-          text: 'ライフ数',
-          value: 'lifeCount',
+          text: '終了時刻',
+          value: 'endTime',
         },
         {
-          text: 'コード',
-          value: 'code',
-        },
-        {
-          text: '参加日時',
-          value: 'joinTime',
+          text: 'タイプ',
+          value: 'missionType',
         },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
     }
   },
   computed: {
-    ...mapState('admin/admin', ['users']),
+    ...mapState('admin/admin', ['missions']),
   },
   methods: {
-    ...mapMutations('admin/admin', ['setUserDialogId', 'setUserDialogShow']),
+    ...mapMutations('admin/admin', [
+      'setMissionDialogShow',
+      'setMissionDialogId',
+    ]),
     getDateFormat(date) {
       const d = new Date(date)
       console.log(d)
