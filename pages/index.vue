@@ -27,6 +27,8 @@
           v-card-title 参加者
           v-card-text
             v-data-table(:headers="headers" :items="users")
+              template(v-slot:item.lifeCount="{item}")
+                | {{ item.lifeCount === 0 ? "脱落" : "生存" }}
 
     // div(v-for="(user,index) in users" :key="index")
       user-card(:user="user")

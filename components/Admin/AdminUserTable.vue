@@ -7,6 +7,14 @@
           v-icon(@click="setUserDialogId(item.id);setUserDialogShow(true)") mdi-pencil
         template(v-slot:item.joinTime="{item}")
           | {{ getDateFormat(item.joinTime) }}
+        template(v-slot:item.mikkokuCount="{item}")
+          | {{ item.mikkokus.length }}
+        template(v-slot:item.mikkokuSuccess="{item}")
+          | {{ (item.mikkokus.filter(x => x.status === true).length / item.mikkokus.length) || 0 }}
+        template(v-slot:item.missionCount="{item}")
+          | {{ item.missionTransactions.length }}
+        template(v-slot:item.missionSuccess="{item}")
+          | {{ (item.missionTransactions.filter(x => x.status === true).length / item.missionTransactions.length) || 0 }}
 </template>
 
 <script>
@@ -37,6 +45,22 @@ export default {
         {
           text: 'コード',
           value: 'code',
+        },
+        {
+          text: '密告数',
+          value: 'mikkokuCount',
+        },
+        {
+          text: '密告成功率',
+          value: 'mikkokuSuccess',
+        },
+        {
+          text: 'ミッション挑戦数',
+          value: 'missionCount',
+        },
+        {
+          text: 'ミッション成功率',
+          value: 'missionSuccess',
         },
         {
           text: '参加日時',
